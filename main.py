@@ -1,5 +1,6 @@
 import streamlit as st 
 import pickle 
+import joblib
 import pandas as pd
 
 with open ('model.pkl', 'rb')  as model_file :

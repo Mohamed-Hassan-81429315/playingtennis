@@ -79,9 +79,10 @@ print('##'*50)'''
 ###  Then the used  model is   RandomForestClassifier
 
 
-'''with open("model.pkl" , 'wb') as model_file :
-    pickle.dump(model_randomC ,model_file )
 
+import joblib
+joblib.dump(model_randomC, 'model.pkl')
+'''
 with open("scaler.pkl" , 'wb') as scaler_file :
     pickle.dump(scaler , scaler_file )
 print("Done.....")'''
@@ -94,7 +95,7 @@ plt.title("Showing the correcltion between the target and all features")
 # plt.xlabel("The features names")
 # plt.ylabel("The features names with Target")
 
-plt.show()
+# plt.show()
 
 # ----------------------------------------- 
 
@@ -132,34 +133,4 @@ g.fig.suptitle(f"Relationship between {data['Play']} and other features")
 plt.show()
 '''
 
-
-# نحدد عدد الـ features
-features = x.columns.tolist()
-n = len(features)
-
-# نعمل grid من الـ subplots
-rows = (n + 2) // 3   # نخلي كل 3 أعمدة في صف
-fig, axes = plt.subplots(rows, 3, figsize=(15, 5*rows))
-axes = axes.flatten()
-
-for i, col in enumerate(features):
-    ax = axes[i]
-   
-    if data[col].dtype == 'object':   # categorical
-        sns.countplot(data=data, x=col, hue='Play', ax=ax)
-        ax.set_title(f"{col} vs Play (countplot)")
-    else:   # numerical
-        sns.boxplot(data=data, x='Play', y=col, ax=ax)
-        ax.set_title(f"{col} vs Play (boxplot)")
-   
-    ax.set_xlabel(col)
-    ax.set_ylabel("")
-
-# لو عدد الرسومات أقل من grid
-for j in range(i+1, len(axes)):
-    fig.delaxes(axes[j])
-
-plt.suptitle("Relationship between Play and Features", fontsize=16)
-plt.tight_layout(rect=[0, 0, 1, 0.96])
-plt.show()
 
