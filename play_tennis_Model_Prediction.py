@@ -1,4 +1,5 @@
-import numpy as np   , pandas as pd  
+import numpy as np   
+import pandas as pd  
 from sklearn.linear_model import LinearRegression as Linreg  , LogisticRegression as Log_reg
 from sklearn.metrics import accuracy_score  , silhouette_score , r2_score , f1_score  , precision_score , classification_report
 from sklearn.naive_bayes import MultinomialNB  , GaussianNB 
@@ -57,10 +58,9 @@ x = data.drop(columns=['Play'])
 y = data['Play']
 
 x_train , x_test , y_train  , y_test = train_test_split(x , y , test_size=0.2 ,random_state= 42)
-# x_train2 , x_test2 , y_train2  , y_test2 = train_test_split(x , y , test_size=0.2 ,random_state= 42)
-
 
 # here we will use Standard Scalar to make standarization to the data ==> Remember to search about its code 
+
 scaler = StandardScaler()
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.fit_transform(x_test)
@@ -76,26 +76,31 @@ print('--'*50)
 print(classification_report(y_test, y_test_pred))
 print('##'*50)'''
 
-###  Then the used  model is   RandomForestClassifier
 
+### Draw correaltion between target and all features  for Client and more adcanced scales
 
-
-import joblib
-joblib.dump(model_randomC, 'model.pkl')
-'''
-with open("scaler.pkl" , 'wb') as scaler_file :
-    pickle.dump(scaler , scaler_file )
-print("Done.....")'''
-
-### Draw correaltion between target and all features 
 correlation = data.corr()
 plt.figure(figsize=[10 , 8])
 sns.heatmap(data= correlation , annot=True , fmt=".2f" , cmap="coolwarm" , robust=True)
 plt.title("Showing the correcltion between the target and all features")
-# plt.xlabel("The features names")
-# plt.ylabel("The features names with Target")
+plt.xlabel("The features names")
+plt.ylabel("The features names with Target")
 
-# plt.show()
+plt.show()
+
+
+###  Then the used  model is   RandomForestClassifier
+
+# Now we will extract the model to be used in building the suitable UI
+
+import joblib
+joblib.dump(model_randomC, 'model.pkl')
+with open("scaler.pkl" , 'wb') as scaler_file :
+    pickle.dump(scaler , scaler_file )
+ 
+
+
+
 
 # ----------------------------------------- 
 
